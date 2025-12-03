@@ -1,53 +1,107 @@
+"use client";
+import { useCampersStore } from "@/store/useCamperStore";
 import { iconsFeatures } from "../CamperFeatures/CamperFeatures";
+import { useState } from "react";
 
 const features = [
   {
     label: "Transmission",
     icon: iconsFeatures.transmission,
+    api: "transmission",
   },
   {
     label: "Engine",
     icon: iconsFeatures.engine,
+    api: "engine",
   },
   {
     label: "Kitchen",
     icon: iconsFeatures.kitchen,
+    api: "kitchen",
   },
   {
     label: "AC",
     icon: iconsFeatures.ac,
+    api: "AC",
   },
   {
     label: "Bathroom",
     icon: iconsFeatures.shower,
+    api: "bathroom",
   },
   {
     label: "TV",
     icon: iconsFeatures.tv,
+    api: "TV",
   },
   {
     label: "Radio",
     icon: iconsFeatures.radio,
+    api: "radio",
   },
   {
     label: "Fridge",
     icon: iconsFeatures.fridge,
+    api: "fridge",
   },
   {
     label: "Microwave",
     icon: iconsFeatures.microwave,
+    api: "microwave",
   },
   {
     label: "Gas",
     icon: iconsFeatures.gas,
+    api: "gas",
   },
   {
     label: "Water",
     icon: iconsFeatures.water,
+    api: "water",
   },
+];
+const vehicleTypes = [
+  { label: "Van", icon: "icon-van", value: "panelTruck" },
+  {
+    label: "Fully Integrated",
+    icon: "icon-integrated",
+    value: "fullyIntegrated",
+  },
+  { label: "Alcove", icon: "icon-alcove", value: "alcove" },
 ];
 
 export default function Filters() {
+  const setGlobalFilters = useCampersStore((state) => state.setFilters);
+  const [location, setLocation] = useState<string>("");
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+  const [vehicleType, setVehicleType] = useState("");
+  const handleFeatureClick = (apiKey: string) => {
+    setSelectedFeatures((prev) =>
+      prev.includes(apiKey)
+        ? prev.filter((item) => item !== apiKey)
+        : [...prev, apiKey]
+    );
+  };
+  const handleTypeClick = (value: string) => {
+    setVehicleType((prev) => (prev === value ? "" : value));
+  };
+  const handleSearch = () => {
+    setGlobalFilters({
+      location: location,
+      form: vehicleType,
+      features: selectedFeatures,
+    });
+  };
+  const resetFilters = () => {
+    setLocation("");
+    setSelectedFeatures([]);
+    setVehicleType("");
+    setGlobalFilters({
+      location: "",
+      form: "",
+      features: [],
+    });
+  };
   return (
     <div className="w-[360px]">
       <div>
@@ -57,6 +111,8 @@ export default function Filters() {
         <div className="relative mb-10">
           <input
             type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
             placeholder="City"
             className="w-full h-14 rounded-xl py-[18px] pl-10 pr-5 font-normal text-base leading-normal text-(--main) placeholder:text-(--main) focus:border-none"
           />
@@ -78,19 +134,24 @@ export default function Filters() {
         </p>
         <hr className="h-px border-(--gray) mb-6" />
         <ul className="flex flex-row flex-wrap gap-x-3 gap-y-2">
-          {features.map((feature, index) => (
-            <li
-              key={index}
-              className="flex flex-col items-center justify-center gap-2.5 w-28 h-24 border border-(--main) rounded-xl"
-            >
-              <svg width={32} height={32} className="">
-                <use href={`/icons.svg#${feature.icon}`} />
-              </svg>
-              <span className="font-medium text-base leading-normal tracking-[-0.01em] text-center text-(--main)">
-                {feature.label}
-              </span>
-            </li>
-          ))}
+          {features.map((feature) => {
+            const isSelected = selectedFeatures.includes(feature.api);
+            return (
+              <li
+                key={feature.api}
+                onClick={() => handleFeatureClick(feature.api)}
+                className={`flex flex-col items-center justify-center gap-2.5 w-28 h-24 border rounded-xl cursor-pointer transition-all
+                  ${isSelected ? "border-(--button)" : "border-(--gray)"}`}
+              >
+                <svg width={32} height={32}>
+                  <use href={`/icons.svg#${feature.icon}`} />
+                </svg>
+                <span className="font-medium text-base leading-normal text-center text-(--main)">
+                  {feature.label}
+                </span>
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div className="mb-10">
@@ -99,37 +160,39 @@ export default function Filters() {
         </p>
         <hr className="h-px border-(--gray) mb-6" />
         <ul className="flex flex-row flex-wrap gap-3">
-          <li className="flex flex-col items-center justify-center gap-2.5 w-28 h-24 border border-(--main) rounded-xl">
-            <svg width={32} height={32}>
-              <use href={`/icons.svg#icon-van`} />
-            </svg>
-            <span className="font-medium text-base leading-normal tracking-[-0.01em] text-center text-(--main)">
-              Van
-            </span>
-          </li>
-          <li className="flex flex-col items-center justify-center gap-2.5 w-28 h-24 border border-(--main) rounded-xl">
-            <svg width={32} height={32}>
-              <use href={`/icons.svg#icon-integrated`} />
-            </svg>
-            <span className="font-medium text-base leading-normal tracking-[-0.01em] text-center text-(--main)">
-              Fully Integrated
-            </span>
-          </li>
-          <li className="flex flex-col items-center justify-center gap-2.5 w-28 h-24 border border-(--main) rounded-xl">
-            <svg width={32} height={32}>
-              <use href={`/icons.svg#icon-alcove`} />
-            </svg>
-            <span className="font-medium text-base leading-normal tracking-[-0.01em] text-center text-(--main)">
-              Alcove
-            </span>
-          </li>
+          {vehicleTypes.map((type) => {
+            const isSelected = vehicleType === type.value;
+            return (
+              <li
+                key={type.value}
+                onClick={() => handleTypeClick(type.value)}
+                className={`flex flex-col items-center justify-center gap-2.5 w-28 h-24 border rounded-xl cursor-pointer transition-all
+                  ${isSelected ? "border-[#E44848]" : "border-(--gray)"}`}
+              >
+                <svg width={32} height={32}>
+                  <use href={`/icons.svg#${type.icon}`} />
+                </svg>
+                <span className="font-medium text-base leading-normal text-center text-(--main)">
+                  {type.label}
+                </span>
+              </li>
+            );
+          })}
         </ul>
       </div>
       <button
+        onClick={handleSearch}
+        className="text-center bg-(--button) rounded-full py-4 px-12 w-[173px] h-14 font-medium text-base leading-6 tracking-tighter text-(--white)
+          hover:bg-(--button-hover) transition-colors ease-out mr-3.5"
+      >
+        Search
+      </button>
+      <button
+        onClick={resetFilters}
         className="text-center bg-(--button) rounded-full py-4 px-12 w-[173px] h-14 font-medium text-base leading-6 tracking-tighter text-(--white)
           hover:bg-(--button-hover) transition-colors ease-out"
       >
-        Search
+        Reset
       </button>
     </div>
   );

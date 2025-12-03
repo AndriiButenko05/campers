@@ -1,23 +1,9 @@
-import { Camper } from "@/types/camper";
+import {
+  CamperFeaturesProps,
+  iconsFeatures,
+} from "../CamperFeatures/CamperFeatures";
 
-export const iconsFeatures = {
-  gas: "icon-gas-stove",
-  water: "icon-water",
-  microwave: "icon-microwave",
-  fridge: "icon-fridge",
-  shower: "icon-shower",
-  kitchen: "icon-cup",
-  ac: "icon-ac",
-  tv: "icon-tv",
-  engine: "icon-fuel",
-  radio: "icon-radio",
-  transmission: "icon-diagram",
-};
-
-export interface CamperFeaturesProps {
-  camper: Camper;
-}
-export default function CamperFeatures({ camper }: CamperFeaturesProps) {
+export default function Features({ camper }: CamperFeaturesProps) {
   const features = [
     {
       label: camper.transmission,
@@ -81,7 +67,6 @@ export default function CamperFeatures({ camper }: CamperFeaturesProps) {
       <ul className="flex flex-row flex-wrap gap-2">
         {features
           .filter((feature) => feature.available)
-          .slice(0, 4)
           .map((feature, index) => (
             <li
               key={index}

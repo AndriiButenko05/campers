@@ -37,3 +37,19 @@ export async function getCampers(params: GetCampersParams):Promise<CampersApiRes
   }
     
 }
+export async function fetchCamperById(
+  id: string
+): Promise<Camper> {
+  try {
+    const { data } = await nextServer.get<Camper>(
+      `/campers/${id}`,
+      { withCredentials: false }
+    );
+    return data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || 'Fetching good failed');
+    }
+    throw new Error('Fetching good failed');
+  }
+}

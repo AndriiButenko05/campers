@@ -62,7 +62,7 @@ export default function CampersList({ campers }: CampersListProps) {
                 <CamperFeatures camper={camper}></CamperFeatures>
               </div>
               <Link
-                href="/catalog"
+                href={`/catalog/${camper.id}`}
                 className="mt-6 inline-block text-center bg-(--button) rounded-full py-4 px-10 w-[166px] h-14 font-medium text-base leading-6 tracking-tighter text-(--white) hover:bg-(--button-hover) transition-colors ease-out"
               >
                 Show more

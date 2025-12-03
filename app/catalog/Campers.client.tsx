@@ -2,9 +2,11 @@
 import CampersList from "@/components/CampersList/CampersList";
 import Filters from "@/components/Filters/Filters";
 import { getCampers } from "@/lib/api/clientapi";
+import { useCampersStore } from "@/store/useCamperStore";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 export default function CampersClient() {
+  const { filters } = useCampersStore();
   const {
     data,
     isLoading,
@@ -13,8 +15,25 @@ export default function CampersClient() {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["campers"],
-    queryFn: ({ pageParam = 1 }) => getCampers({ page: pageParam }),
+    queryKey: ["campers", filters],
+    queryFn: ({ pageParam = 1 }) => {
+      const featuresParams = filters.features.reduce((acc, feature) => {
+        if (feature === "transmission") {
+          acc[feature] = "automatic";
+        } else {
+          acc[feature] = true;
+        }
+        return acc;
+      }, {} as Record<string, string | boolean>);
+
+      return getCampers({
+        page: pageParam,
+        limit: 4,
+        location: filters.location,
+        form: filters.form,
+        ...featuresParams,
+      });
+    },
     getNextPageParam: (lastPage, allPages) => {
       const totalFetched = allPages.flatMap((page) => page.items).length;
       if (totalFetched < lastPage.total) {
