@@ -5,14 +5,10 @@ interface FiltersState {
   form: string;
   features: string[]; 
 }
-
 interface CampersStore {
-
   filters: FiltersState;
   setFilters: (filters: Partial<FiltersState>) => void;
   resetFilters: () => void;
-
-
   favorites: string[]; 
   toggleFavorite: (id: string) => void;
 }
@@ -47,7 +43,6 @@ export const useCampersStore = create<CampersStore>()(
     {
       name: 'campers-storage', 
       storage: createJSONStorage(() => localStorage),
-      
       partialize: (state) => ({ favorites: state.favorites }), 
     }
   )

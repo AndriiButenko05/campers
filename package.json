@@ -10,10 +10,14 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.42.0",
+    "add": "^2.0.6",
     "axios": "^1.13.2",
     "next": "16.0.6",
+    "pnpm": "^10.24.0",
     "react": "19.2.0",
+    "react-datepicker": "^8.10.0",
     "react-dom": "19.2.0",
+    "react-hot-toast": "^2.6.0",
     "zustand": "^5.0.9"
   },
   "devDependencies": {

@@ -1,13 +1,17 @@
 "use client";
 import { fetchCamperById } from "@/lib/api/clientapi";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import CamperFeatures from "@/components/CamperFeatures/CamperFeatures";
 import Features from "@/components/Features/Features";
 import { useState } from "react";
+import Details from "@/components/Details/Details";
+import Reviews from "@/components/Reviews/Reviews";
+import Booking from "@/components/Booking/Booking";
 export default function CamperInfo() {
-  const [isReviewsOpen, setIsReviewsOpen] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<"features" | "reviews">(
+    "features"
+  );
   const params = useParams<{ id: string }>();
   const camperId = params.id;
   const {
@@ -60,76 +64,56 @@ export default function CamperInfo() {
             ))}
           </ul>
         </div>
-        <p className="mb-6 font-normal  text-(--text) mb-15">
+        <p className="font-normal  text-(--text) mb-15">
           {camper?.description}
         </p>
         <div className="mb-6">
           <ul className="flex gap-10">
             <li>
-              <p className="font-semibold text-xl leading-[1.33]">Features</p>
+              <button
+                className={`font-semibold text-xl leading-[1.33] relative ${
+                  activeTab === "features"
+                    ? "after:content-[''] after:absolute after:left-0 after:bottom-[-25px] after:w-full after:h-0.5 after:bg-(--button)"
+                    : ""
+                }`}
+                onClick={() => setActiveTab("features")}
+              >
+                Features
+              </button>
             </li>
             <li>
-              <p className="font-semibold text-xl leading-[1.33]">Reviews</p>
+              <button
+                className={`font-semibold text-xl leading-[1.33] relative ${
+                  activeTab === "reviews"
+                    ? "after:content-[''] after:absolute after:left-0 after:bottom-[-25px] after:w-full after:h-0.5 after:bg-(--button)"
+                    : ""
+                }`}
+                onClick={() => setActiveTab("reviews")}
+              >
+                Reviews
+              </button>
             </li>
           </ul>
         </div>
-        <hr className="h-px border-(--gray) mb-6" />
-        <div>
-          {!isReviewsOpen && (
-            <div className="bg-(--inputs) w-[613px] py-11 px-[52px]">
-              {camper && <Features camper={camper}></Features>}
-              <div className="mt-25">
-                <h2 className="font-semibold text-xl leading-[1.33]">
-                  Vehicle details
-                </h2>
-                <hr className="h-px border-(--gray) mb-6" />
-                <ul className="flex flex-col gap-4">
-                  <li className="flex justify-between">
-                    <p className="font-medium text-[16px] leading-6">Form</p>
-                    <p className="font-medium text-[16px] leading-6">
-                      {camper?.form}
-                    </p>
-                  </li>
-                  <li className="flex justify-between">
-                    <p className="font-medium text-[16px] leading-6">Length</p>
-                    <p className="font-medium text-[16px] leading-6">
-                      {camper?.length}
-                    </p>
-                  </li>
-                  <li className="flex justify-between">
-                    <p className="font-medium text-[16px] leading-6">Width</p>
-                    <p className="font-medium text-[16px] leading-6">
-                      {camper?.width}
-                    </p>
-                  </li>
-                  <li className="flex justify-between">
-                    <p className="font-medium text-[16px] leading-6">Height</p>
-                    <p className="font-medium text-[16px] leading-6">
-                      {camper?.height}
-                    </p>
-                  </li>
-                  <li className="flex justify-between">
-                    <p className="font-medium text-[16px] leading-6">Tank</p>
-                    <p className="font-medium text-[16px] leading-6">
-                      {camper?.tank}
-                    </p>
-                  </li>
-                  <li className="flex justify-between">
-                    <p className="font-medium text-[16px] leading-6">
-                      Consumption
-                    </p>
-                    <p className="font-medium text-[16px] leading-6">
-                      {camper?.consumption}
-                    </p>
-                  </li>
-                </ul>
+        <hr className="h-px border-(--gray-light) mb-11" />
+        <div className="flex gap-10">
+          <div>
+            {activeTab === "features" && (
+              <div className="w-[631px]">
+                {camper && <Features camper={camper} />}
+                {camper && <Details camper={camper} />}
               </div>
-            </div>
-          )}
-
-          <div></div>
+            )}
+            {activeTab === "reviews" && camper && (
+              <div className=" w-[631px] ">
+                <Reviews camper={camper}></Reviews>
+              </div>
+            )}
+          </div>
+          <div>
+            <Booking></Booking>
+          </div>
         </div>
-        <div></div>
       </div>
     </section>
   );
