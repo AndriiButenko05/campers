@@ -46,7 +46,6 @@ export default function CampersClient() {
     },
   });
   const campers = data?.pages.flatMap((page) => page.items) ?? [];
-  if (isLoading) return <Loading></Loading>;
   if (isError)
     return (
       <div>
@@ -55,6 +54,7 @@ export default function CampersClient() {
         </p>
       </div>
     );
+  if (isLoading) return <Loading></Loading>;
   return (
     <div className="container">
       <div className="flex flex-row gap-22">
