@@ -43,7 +43,10 @@ export const useCampersStore = create<CampersStore>()(
     {
       name: 'campers-storage', 
       storage: createJSONStorage(() => localStorage),
-      partialize: (state) => ({ favorites: state.favorites }), 
+      partialize: (state) => ({
+        favorites: state.favorites,
+     
+       }), 
     }
   )
 );

@@ -27,6 +27,7 @@ export default function CampersList({ campers }: CampersListProps) {
                 height="320"
                 alt={camper.name}
                 src={camper.gallery[0].thumb}
+                className="rounded-[10px] object-cover"
               ></Image>
               <div className="flex flex-col justify-between">
                 <div className="flex justify-between items-center mb-2 ">
@@ -36,7 +37,7 @@ export default function CampersList({ campers }: CampersListProps) {
                   <div>
                     <div className="flex gap-[13px]">
                       <p className="font-semibold text-2xl leading-[1.33] ">
-                        € {camper.price.toFixed(2)}
+                        €{camper.price.toFixed(2)}
                       </p>
                       <button onClick={() => toggleFavorite(camper.id)}>
                         <svg

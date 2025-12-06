@@ -1,5 +1,5 @@
 "use client";
-import { fetchCamperById } from "@/lib/api/clientapi";
+
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import Image from "next/image";
@@ -8,6 +8,9 @@ import { useState } from "react";
 import Details from "@/components/Details/Details";
 import Reviews from "@/components/Reviews/Reviews";
 import Booking from "@/components/Booking/Booking";
+import Loading from "@/app/loading";
+import { fetchCamperById } from "@/lib/api/clientApi";
+
 export default function CamperInfo() {
   const [activeTab, setActiveTab] = useState<"features" | "reviews">(
     "features"
@@ -22,7 +25,15 @@ export default function CamperInfo() {
     queryKey: ["camper", camperId],
     queryFn: () => fetchCamperById(camperId),
   });
-
+  if (isLoading) return <Loading></Loading>;
+  if (error)
+    return (
+      <div>
+        <p className="font-semibold text-2xl leading-[1.33] text-center">
+          Ops, something went wrong...
+        </p>
+      </div>
+    );
   return (
     <section className="my-12">
       <div className="container">
@@ -59,6 +70,7 @@ export default function CamperInfo() {
                   alt={camper.name}
                   width={292}
                   height={312}
+                  className="rounded-[10px] object-cover h-[312px]"
                 />
               </li>
             ))}
@@ -99,7 +111,7 @@ export default function CamperInfo() {
         <div className="flex gap-10">
           <div>
             {activeTab === "features" && (
-              <div className="w-[631px]">
+              <div className="w-[631px] bg-(--inputs) px-[52px] py-11">
                 {camper && <Features camper={camper} />}
                 {camper && <Details camper={camper} />}
               </div>

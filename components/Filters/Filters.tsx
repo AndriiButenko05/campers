@@ -47,12 +47,12 @@ export default function Filters() {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="City"
-            className="w-full h-14 rounded-xl py-[18px] pl-10 pr-5 font-normal text-base leading-normal text-(--main) placeholder:text-(--main) focus:border-none"
+            className=" bg-(--inputs) w-full h-14 rounded-xl py-[18px] pl-10 pr-5 font-normal text-base leading-normal text-(--main) placeholder:text-(--gray) focus:border-none "
           />
           <svg
             width={18}
             height={20}
-            className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"
+            className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none fill-(--gray)"
           >
             <use href="/icons.svg#icon-map"></use>
           </svg>
@@ -76,7 +76,7 @@ export default function Filters() {
                 className={`flex flex-col items-center justify-center gap-2.5 w-28 h-24 border rounded-xl cursor-pointer transition-all
                   ${isSelected ? "border-(--button)" : "border-(--gray)"}`}
               >
-                <svg width={32} height={32}>
+                <svg width={32} height={32} className="fill-(--main)">
                   <use href={`/icons.svg#${feature.icon}`} />
                 </svg>
                 <span className="font-medium text-base leading-normal text-center text-(--main)">

@@ -1,6 +1,20 @@
 import { dehydrate, QueryClient, Hydrate } from "@tanstack/react-query";
 import CampersClient from "./Campers.client";
-import { getCampers } from "@/lib/api/clientapi";
+import { getCampers } from "@/lib/api/clientApi";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Catalog",
+  description: "Search Campervans",
+  openGraph: {
+    title: "CamperVans Catalog",
+    description: "Search Campervans",
+    url: "https://campers-two-theta.vercel.app/catalog",
+    siteName: "CamperVans",
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 export default async function CampersPage() {
   const queryClient = new QueryClient();

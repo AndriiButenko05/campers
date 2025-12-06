@@ -7,9 +7,11 @@ export default function Booking() {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const inputStyles =
     "w-[527px] h-[60px] rounded-xl p-[18px]  text-(--main) placeholder:text-(--text) bg-(--inputs) focus:outline-none focus:ring-2 focus:ring-(--button) transition-all ease-out";
-  const formSubmit = (event: React.FormEvent) => {
-    event?.preventDefault();
+  const formSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     toast.success("Campervan booked!");
+    event.currentTarget.reset();
+    setStartDate(null);
   };
   return (
     <div className="p-6 border border-(--gray-light) rounded-[20px] w-[641px] h-[588px]">
@@ -35,6 +37,7 @@ export default function Booking() {
           type="email"
           name="email"
           placeholder="Email*"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
           className={inputStyles}
         />
         <Calendar
@@ -43,8 +46,7 @@ export default function Booking() {
           onChange={setStartDate}
         ></Calendar>
         <textarea
-          name=""
-          id=""
+          name="comment"
           placeholder="Comment"
           className={`${inputStyles} h-[118px] resize-none`}
         ></textarea>{" "}

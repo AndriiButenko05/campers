@@ -1,12 +1,15 @@
 "use client";
 import CampersList from "@/components/CampersList/CampersList";
 import Filters from "@/components/Filters/Filters";
-import { getCampers } from "@/lib/api/clientapi";
+
 import { useCampersStore } from "@/store/useCamperStore";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import Loading from "../loading";
+import { getCampers } from "@/lib/api/clientApi";
 
 export default function CampersClient() {
   const { filters } = useCampersStore();
+
   const {
     data,
     isLoading,
@@ -43,6 +46,15 @@ export default function CampersClient() {
     },
   });
   const campers = data?.pages.flatMap((page) => page.items) ?? [];
+  if (isLoading) return <Loading></Loading>;
+  if (isError)
+    return (
+      <div>
+        <p className="font-semibold text-2xl leading-[1.33] text-center">
+          Ops, something went wrong...
+        </p>
+      </div>
+    );
   return (
     <div className="container">
       <div className="flex flex-row gap-22">
