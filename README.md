@@ -54,7 +54,7 @@ The project is built with a robust and scalable tech stack:
 
 The application connects to a **MockAPI** backend.
 
-**Base URL:** `(https://66b1f8e71ca8ad33d4f5f63e.mockapi.io/campers)`
+**Base URL:** `(https://66b1f8e71ca8ad33d4f5f63e.mockapi.io)`
 
 **Endpoints:**
 - `GET /campers`: Fetch all campers (supports pagination `?page=1&limit=4` and filtering).
