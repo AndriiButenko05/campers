@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "CamperVans Catalog",
     description: "Search Campervans",
-    url: "https://campers-two-theta.vercel.app/catalog",
+    url: "",
     siteName: "CamperVans",
     locale: "en_US",
     type: "website",
