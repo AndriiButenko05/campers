@@ -5,7 +5,7 @@ import Filters from "@/components/Filters/Filters";
 import { useCampersStore } from "@/store/useCamperStore";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import Loading from "../loading";
-import { getCampers } from "@/lib/api/clientApi";
+import { getCampers } from "../../lib/api/clientApi";
 
 export default function CampersClient() {
   const { filters } = useCampersStore();

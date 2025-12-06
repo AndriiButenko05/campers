@@ -9,7 +9,7 @@ import Details from "@/components/Details/Details";
 import Reviews from "@/components/Reviews/Reviews";
 import Booking from "@/components/Booking/Booking";
 import Loading from "@/app/loading";
-import { fetchCamperById } from "@/lib/api/clientApi";
+import { fetchCamperById } from "../../../lib/api/clientApi";
 
 export default function CamperInfo() {
   const [activeTab, setActiveTab] = useState<"features" | "reviews">(

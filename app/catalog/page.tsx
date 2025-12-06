@@ -1,6 +1,6 @@
 import { dehydrate, QueryClient, Hydrate } from "@tanstack/react-query";
 import CampersClient from "./Campers.client";
-import { getCampers } from "@/lib/api/clientApi";
+import { getCampers } from "../../lib/api/clientApi";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
