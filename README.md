@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚐 TravelTrucks - Camper Rental Application
 
-## Getting Started
+![Project Banner](https://img.shields.io/badge/Travel-Trucks-E44848?style=for-the-badge)
 
-First, run the development server:
+## 📖 Project Description
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project is the frontend application for **TravelTrucks**, a camper rental service. The application enables users to browse a catalog of campers, filter them by various criteria, view detailed specifications, manage a list of favorites, and submit booking requests.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+It is built with modern web technologies focusing on performance, user experience, and clean code architecture using **Next.js** and **TypeScript**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 WebSite
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Check out the live application on Vercel:
+**[🔗 View Live Demo](https://campers-snowy.vercel.app)**
 
-## Learn More
+## ✨ Key Features
 
-To learn more about Next.js, take a look at the following resources:
+### 🏠 Home Page (`/`)
+- Hero section with a call-to-action button leading to the catalog.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🚐 Catalog Page (`/catalog`)
+- **Display:** Grid of available campers fetched from the backend.
+- **Filtering:**
+  - **Location:** Text input for city filtering.
+  - **Vehicle Type:** Filter by Van, Fully Integrated, or Alcove.
+  - **Equipment:** Filter by amenities (AC, Kitchen, TV, Shower, etc.).
+- **Pagination:** "Load More" button functionality using infinite query.
+- **Favorites:** Heart icon to add/remove campers from the persistent favorites list.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📝 Camper Details (`/catalog/:id`)
+- **Detailed Info:** Comprehensive specifications (tank size, consumption, dimensions).
+- **Gallery:** Modal/Grid view of camper images.
+- **Reviews:** User ratings and comments.
+- **Booking Form:** Functional form with date picker (`react-datepicker`) and validation to book a camper.
 
-## Deploy on Vercel
+### ❤️ Favorites (`/favorites`)
+- Displays a list of user-favorited campers.
+- **Persistence:** Favorites are saved in `localStorage`, so they remain after a page reload.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠 Technologies Used
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The project is built with a robust and scalable tech stack:
+
+- **Framework:** [Next.js 14 (App Router)](https://nextjs.org/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **State Management:** [Zustand](https://github.com/pmndrs/zustand) (with Persist middleware)
+- **Data Fetching:** [TanStack Query (React Query)](https://tanstack.com/query/latest)
+- **HTTP Client:** [Axios](https://axios-http.com/)
+- **Forms:** [React Datepicker](https://reactdatepicker.com/)
+- **Icons:** SVG Sprites
+
+## 🔌 API
+
+The application connects to a **MockAPI** backend.
+
+**Base URL:** `[https://66b1f8e71ca8ad33d4f5f63e.mockapi.io](https://66b1f8e71ca8ad33d4f5f63e.mockapi.io)`
+
+**Endpoints:**
+- `GET /campers`: Fetch all campers (supports pagination `?page=1&limit=4` and filtering).
+- `GET /campers/:id`: Fetch details for a specific camper.
+
+## 📦 State Management
+
+The application uses **Zustand** for global state management:
+1.  **Filters Store:** Manages active filters (location, equipment, type) to ensure they persist during navigation or search actions.
+2.  **Favorites Store:** Manages the list of favorite camper IDs. Uses `persist` middleware to save data to the browser's `localStorage`.
+
+
+**Developed by [Andrii Butenko](https://github.com/AndriiButenko05)**
