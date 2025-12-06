@@ -64,12 +64,14 @@ export default function CamperInfo() {
         <div className="mb-7">
           <ul className="flex gap-12 justify-between">
             {camper?.gallery.map((photo, index) => (
-              <li key={index}>
+              <li
+                key={index}
+                className="relative w-[292px] h-80 min-w-[292px] shrink-0"
+              >
                 <Image
                   src={photo.original}
                   alt={camper.name}
-                  width={292}
-                  height={312}
+                  fill
                   className="rounded-[10px] object-cover h-[312px]"
                 />
               </li>
@@ -111,7 +113,7 @@ export default function CamperInfo() {
         <div className="flex gap-10">
           <div>
             {activeTab === "features" && (
-              <div className="w-[631px] bg-(--inputs) px-[52px] py-11">
+              <div className="w-[631px] bg-(--inputs) px-[52px] py-11 ">
                 {camper && <Features camper={camper} />}
                 {camper && <Details camper={camper} />}
               </div>

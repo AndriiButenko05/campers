@@ -46,14 +46,6 @@ export default function CampersClient() {
     },
   });
   const campers = data?.pages.flatMap((page) => page.items) ?? [];
-  if (isError)
-    return (
-      <div>
-        <p className="font-semibold text-2xl leading-[1.33] text-center">
-          Ops, something went wrong...
-        </p>
-      </div>
-    );
   if (isLoading) return <Loading></Loading>;
   return (
     <div className="container">
@@ -62,6 +54,11 @@ export default function CampersClient() {
           <Filters />
         </aside>
         <div className="flex flex-col items-center">
+          {campers.length === 0 && (
+            <div className="font-semibold text-2xl leading-[1.33] text-center">
+              Nothing was found
+            </div>
+          )}
           {campers && !isLoading && (
             <CampersList campers={campers}></CampersList>
           )}

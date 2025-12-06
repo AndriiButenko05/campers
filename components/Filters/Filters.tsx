@@ -1,13 +1,18 @@
 "use client";
 import { features, vehicleTypes } from "@/const/consts";
 import { useCampersStore } from "@/store/useCamperStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Filters() {
-  const setGlobalFilters = useCampersStore((state) => state.setFilters);
+  const { filters, setFilters: setGlobalFilters } = useCampersStore();
   const [location, setLocation] = useState<string>("");
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [vehicleType, setVehicleType] = useState("");
+  useEffect(() => {
+    setLocation(filters.location);
+    setSelectedFeatures(filters.features);
+    setVehicleType(filters.form);
+  }, [filters]);
   const handleFeatureClick = (apiKey: string) => {
     setSelectedFeatures((prev) =>
       prev.includes(apiKey)

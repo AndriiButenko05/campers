@@ -16,19 +16,20 @@ export default function CampersList({ campers }: CampersListProps) {
       <ul className="flex flex-col gap-8 justify-center">
         {campers.map((camper) => {
           const isFavorite = favorites.includes(camper.id);
-          console.log(isFavorite);
+
           return (
             <li
               key={camper.id}
               className="flex flex-row gap-6 p-6 border border-(--gray-light) rounded-[20px] w-[888px] h-[368px] "
             >
-              <Image
-                width="292"
-                height="320"
-                alt={camper.name}
-                src={camper.gallery[0].thumb}
-                className="rounded-[10px] object-cover"
-              ></Image>
+              <div className="relative w-[292px] h-80 min-w-[292px] shrink-0">
+                <Image
+                  src={camper.gallery[0].thumb}
+                  alt={camper.name}
+                  fill
+                  className="rounded-[10px] object-cover"
+                />
+              </div>
               <div className="flex flex-col justify-between">
                 <div className="flex justify-between items-center mb-2 ">
                   <p className="font-semibold text-2xl leading-[1.33] ">
