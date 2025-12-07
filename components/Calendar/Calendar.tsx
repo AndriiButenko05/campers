@@ -14,7 +14,13 @@ export default function Calendar({
   className,
 }: CalendarProps) {
   return (
-    <div className={css.wrapper}>
+    <div
+      className={css.wrapper}
+      onClick={(e) =>
+        e.target === e.currentTarget &&
+        (e.currentTarget.querySelector("input") as HTMLInputElement)?.focus()
+      }
+    >
       <DatePicker
         selected={selected}
         onChange={onChange}
@@ -27,6 +33,7 @@ export default function Calendar({
         calendarClassName={css.calendarPopup}
         wrapperClassName={css.wrapper}
         required={true}
+        onKeyDown={(e) => e.preventDefault()}
       />
     </div>
   );

@@ -38,7 +38,6 @@ export default function Booking() {
           type="email"
           name="email"
           placeholder="Email*"
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
           className={inputStyles}
           required={true}
         />
