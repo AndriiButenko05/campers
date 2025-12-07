@@ -72,7 +72,13 @@ export default function Features({ camper }: CamperFeaturesProps) {
               key={index}
               className="flex items-center gap-2 px-4.5 py-4 bg-(--badges) rounded-full"
             >
-              <svg width={20} height={20}>
+              <svg
+                width={20}
+                height={20}
+                className={`${feature.label === "Radio" && " stroke-white"} ${
+                  feature.label === "Microwave" && " stroke-white"
+                }`}
+              >
                 <use href={`/icons.svg#${feature.icon}`} />
               </svg>
               <span className="text-[16px] font-medium capitalize text-(--text)">
