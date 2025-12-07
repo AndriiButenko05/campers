@@ -16,9 +16,11 @@ Check out the live application on Vercel:
 ## ✨ Key Features
 
 ### 🏠 Home Page (`/`)
+
 - Hero section with a call-to-action button leading to the catalog.
 
 ### 🚐 Catalog Page (`/catalog`)
+
 - **Display:** Grid of available campers fetched from the backend.
 - **Filtering:**
   - **Location:** Text input for city filtering.
@@ -28,12 +30,14 @@ Check out the live application on Vercel:
 - **Favorites:** Heart icon to add/remove campers from the persistent favorites list.
 
 ### 📝 Camper Details (`/catalog/:id`)
+
 - **Detailed Info:** Comprehensive specifications (tank size, consumption, dimensions).
 - **Gallery:** Modal/Grid view of camper images.
 - **Reviews:** User ratings and comments.
 - **Booking Form:** Functional form with date picker (`react-datepicker`) and validation to book a camper.
 
 ### ❤️ Favorites (`/favorites`)
+
 - Displays a list of user-favorited campers.
 - **Persistence:** Favorites are saved in `localStorage`, so they remain after a page reload.
 
@@ -57,14 +61,53 @@ The application connects to a **MockAPI** backend.
 **Base URL:** `(https://66b1f8e71ca8ad33d4f5f63e.mockapi.io)`
 
 **Endpoints:**
+
 - `GET /campers`: Fetch all campers (supports pagination `?page=1&limit=4` and filtering).
 - `GET /campers/:id`: Fetch details for a specific camper.
 
 ## 📦 State Management
 
 The application uses **Zustand** for global state management:
+
 1.  **Filters Store:** Manages active filters (location, equipment, type) to ensure they persist during navigation or search actions.
 2.  **Favorites Store:** Manages the list of favorite camper IDs. Uses `persist` middleware to save data to the browser's `localStorage`.
 
+## 💻 Installation & Getting Started
+
+Follow these steps to run the project locally:
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone [https://github.com/AndriiButenko05/campers.git](https://github.com/AndriiButenko05/campers.git)
+    cd campers
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    npm install
+    # or
+    yarn install
+    # or
+    pnpm install
+    ```
+
+3.  **Set up Environment Variables:**
+    Create a `.env.local` file in the root directory and add your API URL:
+
+    ```env
+    NEXT_PUBLIC_API_URL=http://localhost:3000
+    NEXT_PUBLIC_BACKEND_API_URL=[https://66b1f8e71ca8ad33d4f5f63e.mockapi.io](https://66b1f8e71ca8ad33d4f5f63e.mockapi.io)
+    ```
+
+4.  **Run the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+5.  **Open the app:**
+    Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
 **Developed by [Andrii Butenko](https://github.com/AndriiButenko05)**

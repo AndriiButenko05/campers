@@ -81,7 +81,13 @@ export default function Filters() {
                 className={`flex flex-col items-center justify-center gap-2.5 w-28 h-24 border rounded-xl cursor-pointer transition-all
                   ${isSelected ? "border-(--button)" : "border-(--gray)"}`}
               >
-                <svg width={32} height={32} className="fill-(--main)">
+                <svg
+                  width={32}
+                  height={32}
+                  className={`${feature.label === "Radio" && " stroke-white"} ${
+                    feature.label === "Microwave" && " stroke-white"
+                  }`}
+                >
                   <use href={`/icons.svg#${feature.icon}`} />
                 </svg>
                 <span className="font-medium text-base leading-normal text-center text-(--main)">
